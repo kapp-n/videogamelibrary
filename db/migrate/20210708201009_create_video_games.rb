@@ -7,7 +7,7 @@ class CreateVideoGames < ActiveRecord::Migration[6.1]
       t.string :genre
       t.string :platform
       t.string :release_year
-
+    
       t.timestamps
     end
   end
