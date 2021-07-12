@@ -6,9 +6,11 @@ const NavBar = (props) => {
     if (props.loggedIn){
         return (
             <div>
-                <Link to='/logout'>
-                    <button>Log Out</button>
+                <button onClick={props.logOut}>Log Out</button>
+                <Link to='/video_games'>
+                    <button>My Games</button>
                 </Link>
+                <hr/>
             </div>
         )
     } else {
