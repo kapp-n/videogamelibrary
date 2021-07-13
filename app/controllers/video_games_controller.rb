@@ -17,6 +17,31 @@ before_action :authorize
         end
     end
 
+    def show
+        game = VideoGame.find_by(id: params[:id])
+        if game
+            render json: game
+        else
+            render json: { error: "Game not found" }, status: :not_found
+        end
+    end
+
+    def update
+        game = VideoGame.find_by(id: params[:id])
+        if game
+            game.update(game_params)
+            render json: game
+        else
+            render json: { error: "Game not found" }, status: :not_found
+        end
+    end
+
+    def destroy
+        game = VideoGame.find_by(id: params[:id])
+        game.destroy
+        head :no_content
+    end
+
 
     private
 
@@ -25,7 +50,7 @@ before_action :authorize
     end
 
     def game_params
-        params.permit(:title, :rating, :publisher, :genre, :platform, :release_year, :img_url)
+        params.permit(:title, :publisher, :genre, :platform, :release_year, :img_url, :description)
     end
 
 end

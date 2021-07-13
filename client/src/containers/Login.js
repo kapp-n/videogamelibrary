@@ -43,6 +43,7 @@ const Login = ({ onLogin }) => {
 			<br/>
 			<input type="submit" />
         </form>
+	)
 }
 
 export default Login

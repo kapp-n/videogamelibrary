@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 
 export default class GameForm extends Component {
 
-    state = [
-        title = '',
-        rating = '',
-        publisher = '',
-        genre = '',
-        platform = '',
-        release_year = '',
-        img_url = ''
-    ]
+    state = {
+        title : '',
+        publisher : '',
+        genre : '',
+        platform : '',
+        release_year : '',
+        img_url : '',
+		description : ''
+	}
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -27,56 +27,71 @@ export default class GameForm extends Component {
 
     render() {
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
 			<label>Title: </label>
 			<input 
 				type="text" 
-				id="title"
+				name="title"
 				value={this.state.title}
 				onChange={this.handleChange}
 			/>
-			<label>Game Rating (ex: "T", for teen): </label>
-			<input 
-				type="text" 
-				id="rating"
-				value={this.state.rating}
-				onChange={this.handleChange}
-			/>
+			<br/>
+			<br/>
 			<label>Publisher (ex: "Nintendo"): </label>
 			<input 
 				type="text" 
-				id="publisher"
+				name="publisher"
 				value={this.state.publisher}
 				onChange={this.handleChange}
 			/>
+			<br/>
+			<br/>
             <label>Genre: </label>
 			<input 
 				type="text" 
-				id="genre"
+				name="genre"
 				value={this.state.genre}
 				onChange={this.handleChange}
 			/>
+			<br/>
+			<br/>
             <label>Platform (ex: "Playstation"): </label>
 			<input 
 				type="text" 
-				id="platform"
+				name="platform"
 				value={this.state.platform}
 				onChange={this.handleChange}
 			/>
+			<br/>
+			<br/>
             <label>Release Year: </label>
 			<input 
 				type="text" 
-				id="release-year"
+				name="release_year"
 				value={this.state.release_year}
 				onChange={this.handleChange}
 			/>
-            <label>Game Rating: </label>
+			<br/>
+			<br/>
+			<label>Description: </label>
+			<textarea
+				rows="4"
+				cols="20" 
+				type="text"
+				name="description"
+				value={this.state.description}
+				onChange={this.handleChange}
+			/>
+			<br/>
+			<br/>
+			<label>Image URL: </label>
 			<input 
 				type="text" 
-				id="img"
+				name="img_url"
 				value={this.state.img_url}
 				onChange={this.handleChange}
 			/>
+			<br/>
 			<br/>
 			<input type="submit" />
         </form>

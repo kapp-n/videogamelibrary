@@ -4,6 +4,8 @@ import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Signup from './containers/Signup'
 import Login from './containers/Login'
+import Games from './containers/Games'
+import FullGame from './components/FullGame'
 import './App.css';
 
 function App() {
@@ -50,6 +52,7 @@ function App() {
         <Route exact path="/signup" render={routerProps => <Signup {...routerProps} onLogin={onLogin} />} />
         <Route exact path="/login" render={routerProps => <Login {...routerProps} onLogin={onLogin} />} />
         <Route exact path ="/video_games" render={routerProps => <Games {...routerProps} user={user} loggedIn={loggedIn} />} />
+        <Route path ="/video_games/:id" render={routerProps => <FullGame {...routerProps} user={user} loggedIn={loggedIn} />} />
       </Switch>
     </div>
   );
