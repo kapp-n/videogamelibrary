@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
+	const [error, setError] = useState("")
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -17,12 +18,22 @@ const Login = ({ onLogin }) => {
 			})
         })
 		.then(r => r.json())
-		.then(user => onLogin(user))
+		.then(user => {
+			console.log(user)
+			if (user.error){
+				setPassword("")
+				const thisError = user.error
+				setError(thisError)
+			} else {
+				onLogin(user)
+			}
+		})
     }
 
 
     return (
-        <form onSubmit={handleSubmit}>
+		<div>
+        <form className="login" onSubmit={handleSubmit}>
 			<label>Username: </label>
 			<input 
 				type="text" 
@@ -43,6 +54,10 @@ const Login = ({ onLogin }) => {
 			<br/>
 			<input type="submit" />
         </form>
+		<div className="error">
+		{error} 
+		</div>
+	</div>
 	)
 }
 

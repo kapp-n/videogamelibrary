@@ -4,6 +4,7 @@ const Signup = ({ onLogin }) => {
     const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	const [passwordConfirmation, setPasswordConfirmation] = useState("")
+	const [errors, setErrors] = useState([])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -19,11 +20,22 @@ const Signup = ({ onLogin }) => {
 			})
         })
 		.then(r => r.json())
-		.then(user => onLogin(user))
+		.then(user => { 
+			console.log(user)
+			if (user.errors){
+				setPassword("")
+				setPasswordConfirmation("")
+				const userErrors = user.errors.map(error => <h4>{error}</h4>)
+				setErrors(userErrors)
+			} else {
+				onLogin(user)
+			}
+		})
     }
 
 
     return (
+		<div className="login">
         <form onSubmit={handleSubmit}>
 			<label>Username: </label>
 			<input 
@@ -54,6 +66,10 @@ const Signup = ({ onLogin }) => {
 			<br/>
 			<input type="submit" />
         </form>
+		<div>
+			{errors} 
+		</div>
+		</div>
     )
 }
 

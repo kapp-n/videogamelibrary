@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 
-export default class GameForm extends Component {
+export default class EditForm extends Component {
 
     state = {
-        title : '',
-        publisher : '',
-        genre : '',
-        platform : '',
-        release_year : '',
-        img_url : '',
-		description : ''
+        title : this.props.game.title,
+        publisher : this.props.game.publisher,
+        genre : this.props.game.genre,
+        platform : this.props.game.platform,
+        release_year : this.props.game.release_year,
+        img_url : this.props.game.img_url,
+		description : this.props.game.description,
+        id: this.props.game.id
 	}
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.addGame(this.state)
-        console.log(this.state, "adding game")
-
+        this.props.editGame(this.state)
+        console.log(this.state, "editing game")
     }
 
     handleChange = (e) =>{

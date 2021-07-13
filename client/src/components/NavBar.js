@@ -1,14 +1,14 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NavBar = (props) => {
 
     if (props.loggedIn){
         return (
             <div>
-                <button onClick={props.logOut}>Log Out</button>
+                <button className="nav" onClick={props.logOut}>Log Out</button>
                 <Link to='/video_games'>
-                    <button>My Games</button>
+                    <button className="nav">My Games</button>
                 </Link>
                 <hr/>
             </div>
@@ -18,10 +18,10 @@ const NavBar = (props) => {
         return (
             <div>
                 <Link to='/signup'>
-					<button>Sign Up</button>
+					<button className="nav">Sign Up</button>
 				</Link>
 				<Link to='/login'>
-				    <button>Login</button>
+				    <button className="nav">Login</button>
 				</Link>
                 <br/>
                 <br/>

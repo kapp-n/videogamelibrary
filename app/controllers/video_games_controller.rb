@@ -18,7 +18,8 @@ before_action :authorize
     end
 
     def show
-        game = VideoGame.find_by(id: params[:id])
+        user = User.find_by(id: session[:user_id])
+        game = user.video_games.find_by(id: params[:id])
         if game
             render json: game
         else
@@ -37,7 +38,8 @@ before_action :authorize
     end
 
     def destroy
-        game = VideoGame.find_by(id: params[:id])
+        user = User.find_by(id: session[:user_id])
+        game = user.video_games.find_by(id: params[:id])
         game.destroy
         head :no_content
     end

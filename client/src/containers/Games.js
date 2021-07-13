@@ -2,28 +2,28 @@ import React, { useState, useEffect } from 'react'
 import GameForm from '../components/GameForm'
 import Game from '../components/Game'
 
-const Games = ({ user, loggedIn }) => {
+const Games = ({ user }) => {
     const [games, setGames] = useState([])
-    const [errors, setErrors] = useState("")
+    const [error, setError] = useState("")
     const [formFlag, setFormFlag] = useState(false)
 
 
-    useEffect(() => {
+    useEffect(() =>{
         fetch('/video_games')
         .then(r => r.json())
         .then(data => {
             console.log(data)
-            if (data) {
-                if (data.errors){
-                    setErrors(data.errors)
-                } else {
-                    setGames(data)
-                }
+            if (data.error){
+                setError(data.error)
             } else {
-                setErrors("Not Authorized")
+                setGames(data)
             }
         })
     }, [])
+
+
+
+   
 
     const addGame = (g) => {
         fetch('/video_games', {
@@ -57,22 +57,22 @@ const Games = ({ user, loggedIn }) => {
     const allGames = games.map(game => <Game key={game.id} game={game} deleteGame={deleteGame} />)
         //linkto `/video_games/${game.id}`)
 
-    if (errors === '') {
+    if (error === '') {
         return (
             <div>
-                <h1 id='name'>{user.username}'s Favorite Games</h1>
+                <h1 id='name'>{user.username}'s favorite games</h1>
                 {allGames}
                 <hr id="game_form" />
                 {formFlag ?
                     <GameForm addGame={addGame} />
                     :
-                    <button onClick={() => setFormFlag(true)}>Add a Game</button>
+                    <button id="add" onClick={() => setFormFlag(true)}>Add a Game</button>
                 }
             </div>
         )
     } else {
         return (
-            <h1>You're not logged in! Please login or sign-up!</h1>
+            <h1 className="error">You're not logged in! Please login or sign-up!</h1>
         )
     }
 }
