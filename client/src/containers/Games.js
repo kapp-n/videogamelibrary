@@ -5,6 +5,7 @@ import Game from '../components/Game'
 const Games = ({ user }) => {
     const [games, setGames] = useState([])
     const [error, setError] = useState("")
+    const [errors, setErrors] = useState([])
     const [formFlag, setFormFlag] = useState(false)
 
 
@@ -35,11 +36,17 @@ const Games = ({ user }) => {
         })
         .then(r => r.json())
         .then(data => {
-            console.log(data)
-            setGames([...games, data])
-            setFormFlag(false)
+            if (data.errors){
+                setGames([...games])
+                const dataErrors = data.errors.map(error => <h2 className="errors">{error}</h2>)
+                setErrors(dataErrors)
+            } else {
+                setGames([...games, data])
+                setFormFlag(false)
+            }
         })
     }
+            
 
     const deleteGame = (g) => {
         fetch(`/video_games/${g.id}`, {
@@ -55,7 +62,7 @@ const Games = ({ user }) => {
     
 
     const allGames = games.map(game => <Game key={game.id} game={game} deleteGame={deleteGame} />)
-        //linkto `/video_games/${game.id}`)
+        
 
     if (error === '') {
         return (
@@ -63,6 +70,9 @@ const Games = ({ user }) => {
                 <h1 id='name'>{user.username}'s favorite games</h1>
                 {allGames}
                 <hr id="game_form" />
+                <div>
+		            {errors} 
+		        </div>
                 {formFlag ?
                     <GameForm addGame={addGame} />
                     :
